@@ -1,0 +1,20 @@
+chmod +x entrypoint.sh
+
+docker-compose up --build
+
+docker exec -it ollama bash
+ollama list
+ollama show llama3.2
+ollama run llama3.2 "Once upon a time,"
+
+docker-compose exec web python manage.py generate_hotels
+
+docker exec -it django-ollama python manage.py makemigrations
+
+docker exec -it django-ollama python manage.py migrate
+
+docker exec -it django-ollama python manage.py generate_hotels
+
+
+docker exec -it postgres-db bash
+psql -U ollama_user -d ollama_db

@@ -8,9 +8,11 @@ services:
       POSTGRES_PASSWORD: ollama_pass
       POSTGRES_DB: ollama_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ollama-network
 
   web:
     build: .
@@ -22,6 +24,10 @@ services:
       - .:/app
     depends_on:
       - db
+      - ollama
+    networks:
+      - ollama-network
+      - scrapy-trip-dot-com_scrapy-network 
 
   ollama:
     image: ollama/ollama:latest
@@ -30,8 +36,18 @@ services:
       - "11434:11434"
     volumes:
       - ./ollama:/root/.ollama
+      - ./entrypoint.sh:/entrypoint.sh
     restart: unless-stopped
-    command: serve
+    networks:
+      - ollama-network
+      - scrapy-trip-dot-com_scrapy-network 
+    entrypoint: ["/entrypoint.sh"]
+
+networks:
+  ollama-network:
+    driver: bridge
+  scrapy-trip-dot-com_scrapy-network:
+    external: true
 
 volumes:
   postgres_data:

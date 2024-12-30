@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'generate_app'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,8 @@ WSGI_APPLICATION = 'llmProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# DATABASE_ROUTERS = ['generate_app.db_router.HotelsRouter']
+
 
 DATABASES = {
     'default': {
@@ -81,8 +84,19 @@ DATABASES = {
         'PASSWORD': 'ollama_pass',
         'HOST': 'db',  # Docker service name for PostgreSQL container
         'PORT': '5432',
+    },
+
+    'scrapy': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'scrapydb',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'scrapy-trip-dot-com-postgres-1',
+        'PORT': '5432',
+
     }
 }
+
 
 
 # Password validation
