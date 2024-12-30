@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'ollama_db',
         'USER': 'ollama_user',
         'PASSWORD': 'ollama_pass',
-        'HOST': 'db',  # Docker service name for PostgreSQL container
+        'HOST': 'postgres-db',  # Docker service name for PostgreSQL container
         'PORT': '5432',
     },
 

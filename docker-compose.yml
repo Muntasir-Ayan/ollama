@@ -13,6 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - ollama-network
+      - scrapy-trip-dot-com_scrapy-network 
 
   web:
     build: .
